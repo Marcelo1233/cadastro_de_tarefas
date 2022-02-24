@@ -36,6 +36,17 @@ setState(() {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
+        appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text("Lista de tarefas",
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold
+        )),
+      ),  
+      
         body: Center(
           child: Padding(
               padding: const EdgeInsets.all(16),
