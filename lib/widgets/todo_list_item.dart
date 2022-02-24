@@ -20,7 +20,7 @@ class TodoListItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color: Colors.grey[200],
+            color: Colors.blue[800],
           ),
           padding: const EdgeInsets.all(16),
           child: Column(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lista_de_tarefas/models/todo.dart';
 import 'package:lista_de_tarefas/repositories/todo_repository.dart';
 import 'package:lista_de_tarefas/widgets/todo_list_item.dart';
-
+ 
 class TodoListPage extends StatefulWidget {
   const TodoListPage({Key? key}) : super(key: key);
 
@@ -21,32 +21,37 @@ class _TodoListPageState extends State<TodoListPage> {
 
   String? errorText;
 
-
   @override
-void initState(){
-  super.initState();
+  void initState() {
+    super.initState();
 
-  todoRepository.getTodoList().then((value){
-setState(() {
-      todos = value;
-});
-  });
-}
+    todoRepository.getTodoList().then((value) {
+      setState(() {
+        todos = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
+        backgroundColor: Colors.blue[900],
         appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text("Lista de tarefas",
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold
-        )),
-      ),  
-      
+          backgroundColor: Colors.blue[700],
+          centerTitle: true,
+          title: Text('Lista de tarefas'),
+          leading: IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.home),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.more_vert),
+            ),
+          ],
+        ),
         body: Center(
           child: Padding(
               padding: const EdgeInsets.all(16),
@@ -59,20 +64,16 @@ setState(() {
                         child: TextField(
                           controller: todoController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Adicione uma tarefa',
-                            hintText: 'Ex. Estudar Flutter',
-                            errorText: errorText,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              border: OutlineInputBorder(),
+                              labelText: 'Adicione uma tarefa',
+                              hintText: 'Ex. Estudar Flutter',
+                              errorText: errorText,
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
                                 color: Color(0xff00d7f3),
                                 width: 2,
-                              )
-                            ),
-                            labelStyle: TextStyle(
-                              color: Color(0xff00d7f3)
-                            )
-                          ),
+                              )),
+                              labelStyle: TextStyle(color: Color(0xff00d7f3))),
                         ),
                       ),
                       SizedBox(width: 8),
@@ -80,9 +81,9 @@ setState(() {
                         onPressed: () {
                           String text = todoController.text;
 
-                          if(text.isEmpty){
+                          if (text.isEmpty) {
                             setState(() {
-                            errorText = 'O titulo não pode ser vazio!';
+                              errorText = 'O titulo não pode ser vazio!';
                             });
                             return;
                           }
@@ -171,7 +172,7 @@ setState(() {
             setState(() {
               todos.insert(deletedTodoPos!, deletedTodo!);
             });
-             todoRepository.saveTodoList(todos);
+            todoRepository.saveTodoList(todos);
           },
         ),
         duration: const Duration(seconds: 5),
@@ -183,7 +184,11 @@ setState(() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Limpar Tudo?'),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Limpar Tudo?',
+          style: TextStyle(color: Color(0xff00d7f3)),
+        ),
         content: Text('Você tem certeza que deseja apagar todas as tarefas?'),
         actions: [
           TextButton(
@@ -198,7 +203,7 @@ setState(() {
               Navigator.of(context).pop();
               deleteAllTodos();
             },
-            style: TextButton.styleFrom(primary: Colors.red),
+            style: TextButton.styleFrom(primary: Colors.red[900]),
             child: Text('Limpar Tudo'),
           ),
         ],
@@ -210,6 +215,6 @@ setState(() {
     setState(() {
       todos.clear();
     });
-        todoRepository.saveTodoList(todos);
+    todoRepository.saveTodoList(todos);
   }
 }
