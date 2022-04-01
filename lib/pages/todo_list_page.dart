@@ -36,7 +36,7 @@ class _TodoListPageState extends State<TodoListPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Color.fromARGB(255, 252, 252, 252),
         appBar: AppBar(
           backgroundColor: Colors.blue[700],
           centerTitle: true,
